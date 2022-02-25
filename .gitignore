@@ -1,0 +1,21 @@
+__pycache__
+*.pyc
+*.log
+.env
+env
+
+
+
+# Visual Studio Code # 
+.vscode/* 
+!.vscode/settings.json 
+!.vscode/tasks.json 
+!.vscode/launch.json 
+!.vscode/extensions.json 
+.history
+
+# Db
+db.sqlite3
+
+# Docker
+data
