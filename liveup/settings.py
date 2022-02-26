@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import environ
 import os
-
+from datetime import timedelta
 env = environ.Env(
     DEBUG=(bool, False)
 )
@@ -164,3 +164,9 @@ REST_FRAMEWORK = {
 }
 
 REST_USE_JWT = True
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=48),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
+    'SIGNING_KEY': env('SECRET_KEY'),
+}

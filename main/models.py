@@ -5,9 +5,12 @@ from django.core.validators import MaxValueValidator
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 
+from main.roles import RECEPTIONIST, ROLES
+
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     phone_number = PhoneNumberField(blank=True, null=True)
+    role = models.CharField(max_length=50, choices=ROLES, default=RECEPTIONIST)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', ]
