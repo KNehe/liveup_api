@@ -48,9 +48,10 @@ class Patient(models.Model):
         self.patient_number = f'P-{self.id}'
 
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         self.calculate_age()
         self.generate_patient_number()
-        super().save(*args, **kwargs)
+        
 
 
 class Prescription(models.Model):
