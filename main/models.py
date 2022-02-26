@@ -3,9 +3,11 @@ from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.core.validators import MaxValueValidator
 from django.utils import timezone
+from phonenumber_field.modelfields import PhoneNumberField
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
+    phone_number = PhoneNumberField(blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', ]
