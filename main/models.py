@@ -100,6 +100,9 @@ class Ward(models.Model):
                                    null=True, blank=True,
                                    related_name='updated_created_by')
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Admission(models.Model):
     ward = models.ForeignKey(Ward,
@@ -119,6 +122,9 @@ class Admission(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='admission_updated_by')
+
+    def __str__(self) -> str:
+        return f"{self.patient} admitted to {self.ward}"
 
 
 class Referral(models.Model):
@@ -142,3 +148,6 @@ class Referral(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='referral_updated_by')
+
+    def __str__(self) -> str:
+        return f"{self.patient} referred to {self.doctor}"
