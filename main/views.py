@@ -12,6 +12,15 @@ class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     permission_classes = [IsReceptionist | IsDoctor]
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+    
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user,
+                        updated_at=timezone.now())
+    def perform_update(self, serializer):
+        return super().perform_update(serializer)
+
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UserSerializer
