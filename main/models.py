@@ -5,7 +5,9 @@ from django.core.validators import MaxValueValidator
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 
-from main.roles import RECEPTIONIST, ROLES
+from main.choices import NOT_SEEN, RECEPTIONIST,\
+    REFERAL_STATUS, ROLES
+
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
@@ -120,6 +122,9 @@ class Referral(models.Model):
                                on_delete=models.SET_NULL,
                                null=True,
                                related_name='doctor_referred_to')
+    status = models.CharField(max_length=20,
+                              choices=REFERAL_STATUS,
+                              default=NOT_SEEN)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User,
                                    on_delete=models.SET_NULL,

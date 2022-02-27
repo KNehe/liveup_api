@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-from main.roles import DOCTOR, NURSE,\
+from main.choices import DOCTOR, NURSE,\
     RECEPTIONIST, STUDENT_CLINICIAN
 
 
