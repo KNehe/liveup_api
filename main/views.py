@@ -4,7 +4,7 @@ from django.utils import timezone
 
 from main.models import Patient, Referral, User
 from .serializers import PatientSerializer, ReferralSerializer, UserSerializer
-from .permissions import IsReceptionist, IsDoctor
+from .permissions import IsNurse, IsReceptionist, IsDoctor, IsStudent_Clinician
 
 
 class PatientViewSet(viewsets.ModelViewSet):
@@ -14,10 +14,11 @@ class PatientViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
-    
+  
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user,
                         updated_at=timezone.now())
+
     def perform_update(self, serializer):
         return super().perform_update(serializer)
 
@@ -49,3 +50,11 @@ class ReferralViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user,
                         updated_at=timezone.now())
+
+
+class ClinicianAssignedPatientsViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = ReferralSerializer
+    permission_classes = [IsDoctor | IsNurse | IsStudent_Clinician]
+    
+    def get_queryset(self):
+        return Referral.objects.filter(doctor=self.request.user)
