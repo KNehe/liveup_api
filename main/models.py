@@ -27,7 +27,8 @@ class Patient(models.Model):
     next_of_kin = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
     date_of_birth = models.DateField(
-                                     validators=[MaxValueValidator(timezone.now().date())])
+                                     validators=[MaxValueValidator(
+                                         timezone.now().date())])
     age = models.IntegerField(blank=True)
     contacts = models.CharField(max_length=20)
     patient_name = models.CharField(max_length=100)
@@ -48,7 +49,8 @@ class Patient(models.Model):
     def calculate_age(self):
         today = timezone.now()
         born = self.date_of_birth
-        self.age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+        self.age = today.year - born.year\
+            - ((today.month, today.day) < (born.month, born.day))
 
     def generate_patient_number(self):
         self.patient_number = f'P-{self.id}'
@@ -57,7 +59,6 @@ class Patient(models.Model):
         self.calculate_age()
         super().save(*args, **kwargs)
         self.generate_patient_number()
-        
 
 
 class Prescription(models.Model):
@@ -65,10 +66,13 @@ class Prescription(models.Model):
                                 on_delete=models.CASCADE,
                                 related_name='patient_prescribed')
     start_datetime = models.DateTimeField(
-                                         validators=[MinValueValidator(timezone.now())])
+                                         validators=[MinValueValidator(
+                                             timezone.now())])
     end_datetime = models.DateTimeField(
-                                        validators=[MinValueValidator(timezone.now())])
-    description = models.TextField(max_length=400, validators=[MinLengthValidator(20)])
+                                        validators=[MinValueValidator(
+                                            timezone.now())])
+    description = models.TextField(max_length=400,
+                                   validators=[MinLengthValidator(20)])
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User,
                                    on_delete=models.SET_NULL,
@@ -79,7 +83,7 @@ class Prescription(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='presciption_updated_by')
-    
+
     def __str__(self) -> str:
         return f'Prescribed by {self.created_by} for {self.patient}'
 

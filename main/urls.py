@@ -1,7 +1,8 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from main.views import ClinicianAssignedPatientsViewSet, PatientViewSet, PrescriptionViewSet,\
+from main.views import ClinicianAssignedPatientsViewSet,\
+    PatientViewSet, PrescriptionViewSet,\
     ReceptionistPatientView, ReferralViewSet, UserViewSet
 
 router = DefaultRouter()
