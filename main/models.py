@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator,\
+    MinValueValidator, MinLengthValidator
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -63,9 +64,11 @@ class Prescription(models.Model):
     patient = models.ForeignKey(Patient,
                                 on_delete=models.CASCADE,
                                 related_name='patient_prescribed')
-    start_datetime = models.DateTimeField()
-    end_datetime = models.DateTimeField()
-    description = models.TextField(max_length=400)
+    start_datetime = models.DateTimeField(
+                                         validators=[MinValueValidator(timezone.now())])
+    end_datetime = models.DateTimeField(
+                                        validators=[MinValueValidator(timezone.now())])
+    description = models.TextField(max_length=400, validators=[MinLengthValidator(20)])
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User,
                                    on_delete=models.SET_NULL,

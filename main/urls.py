@@ -1,16 +1,17 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from main.views import ClinicianAssignedPatientsViewSet, PatientViewSet,\
+from main.views import ClinicianAssignedPatientsViewSet, PatientViewSet, PrescriptionViewSet,\
     ReceptionistPatientView, ReferralViewSet, UserViewSet
 
 router = DefaultRouter()
 router.register(r'patients', PatientViewSet)
 router.register(r'users', UserViewSet)
+router.register(r'referrals', ReferralViewSet)
+router.register(r'prescriptions', PrescriptionViewSet)
 router.register(r'receptionist-patients',
                 ReceptionistPatientView,
                 'registered-patient')
-router.register(r'referrals', ReferralViewSet)
 router.register(r'assigned-patients',
                 ClinicianAssignedPatientsViewSet,
                 basename='assigned-patient')
