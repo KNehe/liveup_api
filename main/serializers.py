@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from main.models import Patient, User
+from main.models import Patient, Referral, User
 
 
 class PatientSerializer(serializers.HyperlinkedModelSerializer):
@@ -21,3 +21,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
                   'last_name', 'phone_number']
         read_only_fields = ['email', 'username',
                             'first_name', 'last_name', 'phone_number', 'id']
+
+
+class ReferralSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Referral
+        fields = ['url', 'patient', 'doctor', 'created_at',
+                  'created_by', 'updated_at', 'updated_by']
+        read_only_fields = ['created_by', 'updated_at',
+                           'updated_by', 'created_at']

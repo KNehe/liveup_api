@@ -110,3 +110,23 @@ class Admission(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='admission_updated_by')
+
+
+class Referral(models.Model):
+    patient = models.ForeignKey(Patient,
+                                on_delete=models.CASCADE,
+                                related_name='patient_referred')
+    doctor = models.ForeignKey(User,
+                               on_delete=models.SET_NULL,
+                               null=True,
+                               related_name='doctor_referred_to')
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User,
+                                   on_delete=models.SET_NULL,
+                                   null=True,
+                                   related_name='referral_created_by')
+    updated_at = models.DateTimeField(null=True, blank=True)
+    updated_by = models.ForeignKey(User,
+                                   on_delete=models.SET_NULL,
+                                   null=True, blank=True,
+                                   related_name='referral_updated_by')
