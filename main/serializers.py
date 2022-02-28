@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from main.models import Patient, Prescription, Referral, User
+from main.models import Admission, Patient, Prescription, Referral, User, Ward
 
 
 class PatientSerializer(serializers.HyperlinkedModelSerializer):
@@ -38,5 +38,20 @@ class PrescriptionSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'patient', 'start_datetime', 'end_datetime',
                   'description', 'created_at', 'created_by',
                   'updated_at', 'updated_by']
+        read_only_fields = ['created_at', 'created_by',
+                            'updated_at', 'updated_by']
+
+
+class WardSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Ward
+        fields = ['url', 'name']
+
+
+class AdmissionSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Admission
+        fields = ['url', 'ward', 'patient', 'created_at',
+                  'created_by', 'updated_at', 'updated_by']
         read_only_fields = ['created_at', 'created_by',
                             'updated_at', 'updated_by']
