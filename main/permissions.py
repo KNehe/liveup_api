@@ -6,19 +6,25 @@ from main.choices import DOCTOR, NURSE,\
 
 class IsReceptionist(permissions.BasePermission):
     def has_permission(self, request, view):
-        return request.user.role == RECEPTIONIST
+        return perform_check(request, RECEPTIONIST)
 
 
 class IsDoctor(permissions.BasePermission):
     def has_permission(self, request, view):
-        return request.user.role == DOCTOR
+        return perform_check(request, DOCTOR)
 
 
 class IsNurse(permissions.BasePermission):
     def has_permission(self, request, view):
-        return request.user.role == NURSE
+        return perform_check(request, NURSE)
 
 
 class IsStudent_Clinician(permissions.BasePermission):
     def has_permission(self, request, view):
-        return request.user.role == STUDENT_CLINICIAN
+        return perform_check(request, STUDENT_CLINICIAN)
+
+
+def perform_check(request, role):
+    if not request.user.is_authenticated:
+        return False
+    return request.user.role == role
