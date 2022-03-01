@@ -5,9 +5,12 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.conf import settings
 
-from main.views import AdmissionViewSet, ClinicianAssignedPatientsViewSet,\
+from main.views import AdmissionViewSet,\
+    ClinicianAssignedPatientsViewSet,\
+    ClinicianStatAPIView,\
     PatientViewSet, PrescriptionViewSet,\
-    ReceptionistPatientView, ReferralViewSet, UserViewSet, WardViewSet
+    ReceptionistPatientView, ReceptionistStatAPIView,\
+    ReferralViewSet, UserViewSet, WardViewSet
 
 router = DefaultRouter()
 router.register(r'patients', PatientViewSet)
@@ -39,6 +42,8 @@ urlpatterns = [
     path('browsable-api-auth/', include('rest_framework.urls')),
     path('auth/', include('dj_rest_auth.urls')),
     path('', include(router.urls)),
+    path('receptionists/stats/', ReceptionistStatAPIView.as_view()),
+    path('clincians/stats/', ClinicianStatAPIView.as_view()),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0),
             name='schema-json'),

@@ -1,8 +1,13 @@
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
 
-from main.models import Admission, Patient, Prescription, Referral, User, Ward
+from main.models import Admission, Patient,\
+    Prescription, Referral, User, Ward
+from main.view_helpers import generate_clinician_stats,\
+    generate_receptionist_stats
 from .serializers import AdmissionSerializer,\
     PatientSerializer, PrescriptionSerializer,\
     ReferralSerializer, UserSerializer, WardSerializer
@@ -104,3 +109,19 @@ class WardViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = WardSerializer
     queryset = Ward.objects.all()
     permission_classes = [IsAuthenticated]
+
+
+class ReceptionistStatAPIView(APIView):
+    permission_classes = [IsReceptionist]
+
+    def get(self, request, format=None):
+        stats = generate_receptionist_stats(request)
+        return Response(stats)
+
+
+class ClinicianStatAPIView(APIView):
+    permission_classes = [IsDoctor | IsNurse | IsStudent_Clinician]
+
+    def get(self, request, format=None):
+        stats = generate_clinician_stats(request)
+        return Response(stats)
