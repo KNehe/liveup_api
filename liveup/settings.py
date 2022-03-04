@@ -193,3 +193,7 @@ SWAGGER_SETTINGS = {
 CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS').split(' ')
 
 FROM_EMAIL = env('FROM_EMAIL')
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'main.serializers.CustomUserDetailsSerializer',
+}

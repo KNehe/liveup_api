@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 from main.models import Admission, Patient, Prescription, Referral, User, Ward
 
+from dj_rest_auth.serializers import UserDetailsSerializer
+
 
 class PatientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -18,9 +20,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ['url', 'email', 'username', 'first_name',
-                  'last_name', 'phone_number']
+                  'last_name', 'phone_number', 'role']
         read_only_fields = ['email', 'username',
-                            'first_name', 'last_name', 'phone_number', 'id']
+                            'first_name', 'last_name', 'phone_number',
+                            'role']
 
 
 class ReferralSerializer(serializers.HyperlinkedModelSerializer):
@@ -55,3 +58,9 @@ class AdmissionSerializer(serializers.HyperlinkedModelSerializer):
                   'created_by', 'updated_at', 'updated_by']
         read_only_fields = ['created_at', 'created_by',
                             'updated_at', 'updated_by']
+
+
+class CustomUserDetailsSerializer(UserDetailsSerializer):
+    class Meta(UserDetailsSerializer.Meta):
+        fields = UserDetailsSerializer.Meta.fields + \
+            ('role', 'username', 'phone_number')
