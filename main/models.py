@@ -42,6 +42,10 @@ class Patient(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='patient_updated_by')
+    
+
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self) -> str:
         return self.patient_name
@@ -59,6 +63,7 @@ class Patient(models.Model):
         self.calculate_age()
         super().save(*args, **kwargs)
         self.generate_patient_number()
+    
 
 
 class Prescription(models.Model):
@@ -83,6 +88,10 @@ class Prescription(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='presciption_updated_by')
+    
+
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self) -> str:
         return f'Prescribed by {self.created_by} for {self.patient}'
@@ -99,6 +108,10 @@ class Ward(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='updated_created_by')
+    
+
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self) -> str:
         return self.name
@@ -122,6 +135,10 @@ class Admission(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='admission_updated_by')
+    
+
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self) -> str:
         return f"{self.patient} admitted to {self.ward}"
@@ -148,6 +165,9 @@ class Referral(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='referral_updated_by')
+    
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self) -> str:
         return f"{self.patient} referred to {self.doctor}"
