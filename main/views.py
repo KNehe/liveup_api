@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
+from main.choices import DOCTOR, NURSE, STUDENT_CLINICIAN
 
 from main.models import Admission, Patient,\
     Prescription, Referral, User, Ward
@@ -125,3 +126,12 @@ class ClinicianStatAPIView(APIView):
     def get(self, request, format=None):
         stats = generate_clinician_stats(request)
         return Response(stats)
+
+
+class ClinicianInfoViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = None
+
+    def get_queryset(self):
+        return User.objects.filter(role__in=[DOCTOR, NURSE, STUDENT_CLINICIAN])

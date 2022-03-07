@@ -10,7 +10,8 @@ from main.views import AdmissionViewSet,\
     ClinicianStatAPIView,\
     PatientViewSet, PrescriptionViewSet,\
     ReceptionistPatientView, ReceptionistStatAPIView,\
-    ReferralViewSet, UserViewSet, WardViewSet
+    ReferralViewSet, UserViewSet, WardViewSet,\
+    ClinicianInfoViewSet
 
 router = DefaultRouter()
 router.register(r'patients', PatientViewSet)
@@ -18,7 +19,10 @@ router.register(r'users', UserViewSet)
 router.register(r'referrals', ReferralViewSet)
 router.register(r'prescriptions', PrescriptionViewSet)
 router.register(r'wards', WardViewSet)
-router.register(r'admissions', AdmissionViewSet)
+router.register(r'admissions', AdmissionViewSet),
+router.register(r'clinicians',
+                ClinicianInfoViewSet,
+                'clinician')
 router.register(r'receptionist-patients',
                 ReceptionistPatientView,
                 'registered-patient')
@@ -43,7 +47,7 @@ urlpatterns = [
     path('auth/', include('dj_rest_auth.urls')),
     path('', include(router.urls)),
     path('receptionists/stats/', ReceptionistStatAPIView.as_view()),
-    path('clincians/stats/', ClinicianStatAPIView.as_view()),
+    path('clinicians/stats/', ClinicianStatAPIView.as_view()),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0),
             name='schema-json'),
