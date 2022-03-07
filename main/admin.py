@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from main.models import Admission, Patient, Prescription, User, Ward
+from main.models import Admission, Patient, Prescription, Referral, User, Ward
 from .forms import CustomUserChangeFrom, CustomUserCreationFrom
 
 
@@ -31,3 +31,4 @@ admin.site.register(Patient)
 admin.site.register(Prescription)
 admin.site.register(Ward)
 admin.site.register(Admission)
+admin.site.register(Referral)
