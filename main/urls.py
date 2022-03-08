@@ -47,7 +47,7 @@ urlpatterns = [
     path('auth/', include('dj_rest_auth.urls')),
     path('', include(router.urls)),
     path('receptionists/stats/', ReceptionistStatAPIView.as_view()),
-    path('clinicians/stats/', ClinicianStatAPIView.as_view()),
+    path('medics/stats/', ClinicianStatAPIView.as_view()),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0),
             name='schema-json'),
