@@ -49,7 +49,7 @@ class ReceptionistPatientView(viewsets.ReadOnlyModelViewSet):
 
 class ReferralViewSet(viewsets.ModelViewSet):
     serializer_class = ReferralSerializer
-    permission_classes = [IsReceptionist]
+    permission_classes = [IsAuthenticated]
     queryset = Referral.objects.all()
 
     def perform_create(self, serializer):
