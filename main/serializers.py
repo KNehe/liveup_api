@@ -31,7 +31,7 @@ class ReferralSerializer(serializers.HyperlinkedModelSerializer):
         model = Referral
         fields = ['url', 'patient', 'status', 'doctor', 'created_at',
                   'created_by', 'updated_at', 'updated_by']
-        read_only_fields = ['status', 'created_by', 'updated_at',
+        read_only_fields = ['created_by', 'updated_at',
                             'updated_by', 'created_at']
 
 
