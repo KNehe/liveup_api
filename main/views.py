@@ -110,6 +110,7 @@ class WardViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = WardSerializer
     queryset = Ward.objects.all()
     permission_classes = [IsAuthenticated]
+    pagination_class = None
 
 
 class ReceptionistStatAPIView(APIView):
