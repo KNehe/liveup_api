@@ -64,3 +64,34 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
     class Meta(UserDetailsSerializer.Meta):
         fields = UserDetailsSerializer.Meta.fields + \
             ('role', 'username', 'phone_number')
+
+
+# Nested Hyperlinked Model Serialiazers
+
+
+class AdmissionNestedSerializer(serializers.HyperlinkedModelSerializer):
+    created_by = UserSerializer()
+    updated_by = UserSerializer()
+    ward = WardSerializer()
+    patient = PatientSerializer()
+
+    class Meta:
+        model = Admission
+        fields = ['url', 'id', 'ward', 'patient', 'created_at',
+                  'created_by', 'updated_at', 'updated_by']
+        read_only_fields = ['created_at', 'created_by',
+                            'updated_at', 'updated_by']
+
+
+class PrescriptionNestedSerializer(serializers.HyperlinkedModelSerializer):
+    created_by = UserSerializer()
+    updated_by = UserSerializer()
+    patient = PatientSerializer()
+
+    class Meta:
+        model = Prescription
+        fields = ['url', 'patient', 'start_datetime', 'end_datetime',
+                  'description', 'created_at', 'created_by',
+                  'updated_at', 'updated_by']
+        read_only_fields = ['created_at', 'created_by',
+                            'updated_at', 'updated_by']

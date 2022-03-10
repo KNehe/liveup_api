@@ -9,8 +9,8 @@ from main.models import Admission, Patient,\
     Prescription, Referral, User, Ward
 from main.view_helpers import generate_clinician_stats,\
     generate_receptionist_stats
-from .serializers import AdmissionSerializer,\
-    PatientSerializer, PrescriptionSerializer,\
+from .serializers import AdmissionNestedSerializer, AdmissionSerializer,\
+    PatientSerializer, PrescriptionNestedSerializer, PrescriptionSerializer,\
     ReferralSerializer, UserSerializer, WardSerializer
 from .permissions import IsNurse, IsReceptionist, IsDoctor, IsStudent_Clinician
 
@@ -136,3 +136,31 @@ class ClinicianInfoViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         return User.objects.filter(role__in=[DOCTOR, NURSE, STUDENT_CLINICIAN])
+
+
+class PatientAdmissionInfoViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = [IsDoctor | IsNurse | IsStudent_Clinician]
+    serializer_class = AdmissionNestedSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        patient_id = self.request.query_params.get('patient_id')
+
+        if not patient_id:
+            return Admission.objects.all()
+
+        return Admission.objects.filter(patient=patient_id)
+
+
+class PatientPrescriptionInfoViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = PrescriptionNestedSerializer
+    permission_classes = [IsDoctor | IsNurse | IsStudent_Clinician]
+    pagination_class = None
+
+    def get_queryset(self):
+        patient_id = self.request.query_params.get('patient_id')
+
+        if not patient_id:
+            return Prescription.objects.all()
+
+        return Prescription.objects.filter(patient=patient_id)

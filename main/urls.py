@@ -1,3 +1,4 @@
+from email.mime import base
 from django.urls import include, path, re_path
 from rest_framework.routers import DefaultRouter
 from rest_framework.permissions import AllowAny
@@ -8,6 +9,7 @@ from django.conf import settings
 from main.views import AdmissionViewSet,\
     ClinicianAssignedPatientsViewSet,\
     ClinicianStatAPIView,\
+    PatientAdmissionInfoViewSet, PatientPrescriptionInfoViewSet,\
     PatientViewSet, PrescriptionViewSet,\
     ReceptionistPatientView, ReceptionistStatAPIView,\
     ReferralViewSet, UserViewSet, WardViewSet,\
@@ -29,6 +31,12 @@ router.register(r'receptionist-patients',
 router.register(r'assigned-patients',
                 ClinicianAssignedPatientsViewSet,
                 basename='assigned-patient')
+router.register(r'admissions-info',
+                PatientAdmissionInfoViewSet,
+                basename='admission-info')
+router.register(r'prescriptions-info',
+                PatientPrescriptionInfoViewSet,
+                basename='prescription-info')
 
 schema_view = get_schema_view(
     openapi.Info(
