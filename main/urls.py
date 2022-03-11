@@ -9,7 +9,8 @@ from django.conf import settings
 from main.views import AdmissionViewSet,\
     ClinicianAssignedPatientsViewSet,\
     ClinicianStatAPIView,\
-    PatientAdmissionInfoViewSet, PatientPrescriptionInfoViewSet,\
+    PatientAdmissionInfoViewSet,\
+    PatientPrescriptionInfoViewSet, PatientReferralInfoViewSet,\
     PatientViewSet, PrescriptionViewSet,\
     ReceptionistPatientView, ReceptionistStatAPIView,\
     ReferralViewSet, UserViewSet, WardViewSet,\
@@ -37,6 +38,9 @@ router.register(r'admissions-info',
 router.register(r'prescriptions-info',
                 PatientPrescriptionInfoViewSet,
                 basename='prescription-info')
+router.register(r'referrals-info',
+                PatientReferralInfoViewSet,
+                basename='referral-info')
 
 schema_view = get_schema_view(
     openapi.Info(

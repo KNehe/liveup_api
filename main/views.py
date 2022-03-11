@@ -10,7 +10,8 @@ from main.models import Admission, Patient,\
 from main.view_helpers import generate_clinician_stats,\
     generate_receptionist_stats
 from .serializers import AdmissionNestedSerializer, AdmissionSerializer,\
-    PatientSerializer, PrescriptionNestedSerializer, PrescriptionSerializer,\
+    PatientSerializer, PrescriptionNestedSerializer,\
+    PrescriptionSerializer, ReferralNestederializer,\
     ReferralSerializer, UserSerializer, WardSerializer
 from .permissions import IsNurse, IsReceptionist, IsDoctor, IsStudent_Clinician
 
@@ -164,3 +165,22 @@ class PatientPrescriptionInfoViewSet(viewsets.ReadOnlyModelViewSet):
             return Prescription.objects.all()
 
         return Prescription.objects.filter(patient=patient_id)
+
+
+class PatientReferralInfoViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    View referral history of a patient or all patients
+    Add patient_id as query param to get history for a patient
+    """
+    serializer_class = ReferralNestederializer
+    permission_classes = [IsDoctor | IsNurse |
+                          IsStudent_Clinician | IsReceptionist]
+    pagination_class = None
+
+    def get_queryset(self):
+        patient_id = self.request.query_params.get('patient_id')
+
+        if not patient_id:
+            return Referral.objects.all()
+
+        return Referral.objects.filter(patient=patient_id)

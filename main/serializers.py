@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from main.models import Admission, Patient, Prescription, Referral, User, Ward
+from main.models import Admission, Patient,\
+    Prescription, Referral, User, Ward
 
 from dj_rest_auth.serializers import UserDetailsSerializer
 
@@ -95,3 +96,17 @@ class PrescriptionNestedSerializer(serializers.HyperlinkedModelSerializer):
                   'updated_at', 'updated_by']
         read_only_fields = ['created_at', 'created_by',
                             'updated_at', 'updated_by']
+
+
+class ReferralNestederializer(serializers.HyperlinkedModelSerializer):
+    patient = PatientSerializer()
+    doctor = UserSerializer()
+    created_by = UserSerializer()
+    updated_by = UserSerializer()
+
+    class Meta:
+        model = Referral
+        fields = ['url', 'patient', 'status', 'doctor', 'created_at',
+                  'created_by', 'updated_at', 'updated_by']
+        read_only_fields = ['created_by', 'updated_at',
+                            'updated_by', 'created_at']
