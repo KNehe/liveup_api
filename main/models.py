@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator,\
     MinValueValidator, MinLengthValidator
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
+from django.db.models.signals import post_save
 
 from main.choices import NOT_SEEN, RECEPTIONIST,\
     REFERAL_STATUS, ROLES
@@ -42,7 +43,6 @@ class Patient(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='patient_updated_by')
-    
 
     class Meta:
         ordering = ['-created_at']
@@ -57,13 +57,20 @@ class Patient(models.Model):
             - ((today.month, today.day) < (born.month, born.day))
 
     def generate_patient_number(self):
-        self.patient_number = f'P-{self.id}'
+        self.patient_number = f'P-{self.pk}'
 
     def save(self, *args, **kwargs):
         self.calculate_age()
         super().save(*args, **kwargs)
-        self.generate_patient_number()
-    
+
+
+def patient_post_save(sender, instance, created, *args, **kwargs):
+    if created:
+        instance.generate_patient_number()
+        instance.save()
+
+
+post_save.connect(patient_post_save, sender=Patient)
 
 
 class Prescription(models.Model):
@@ -88,7 +95,6 @@ class Prescription(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='presciption_updated_by')
-    
 
     class Meta:
         ordering = ['-created_at']
@@ -108,7 +114,6 @@ class Ward(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='updated_created_by')
-    
 
     class Meta:
         ordering = ['-created_at']
@@ -135,7 +140,6 @@ class Admission(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='admission_updated_by')
-    
 
     class Meta:
         ordering = ['-created_at']
@@ -165,7 +169,7 @@ class Referral(models.Model):
                                    on_delete=models.SET_NULL,
                                    null=True, blank=True,
                                    related_name='referral_updated_by')
-    
+
     class Meta:
         ordering = ['-created_at']
 
