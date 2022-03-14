@@ -4,6 +4,7 @@ from main.models import Admission, Patient,\
     Prescription, Referral, User, Ward
 
 from dj_rest_auth.serializers import UserDetailsSerializer
+from dj_rest_auth.serializers import PasswordResetSerializer
 
 
 class PatientSerializer(serializers.HyperlinkedModelSerializer):
@@ -110,3 +111,10 @@ class ReferralNestederializer(serializers.HyperlinkedModelSerializer):
                   'created_by', 'updated_at', 'updated_by']
         read_only_fields = ['created_by', 'updated_at',
                             'updated_by', 'created_at']
+
+
+class CustomPasswordResetSerializer(PasswordResetSerializer):
+    def get_email_options(self):
+        return {
+            'email_template_name': 'password_reset_email.html'
+        }
