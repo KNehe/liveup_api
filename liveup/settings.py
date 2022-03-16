@@ -103,6 +103,9 @@ DATABASES = {
         'PORT': env('DB_PORT')
     }
 }
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 if os.environ.get('GITHUB_WORKFLOW'):
     DATABASES = {
