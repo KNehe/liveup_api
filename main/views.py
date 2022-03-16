@@ -1,8 +1,12 @@
+from cgitb import lookup
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
+from rest_framework import mixins
+from rest_framework import generics
+
 from main.choices import DOCTOR, NURSE, STUDENT_CLINICIAN
 
 from main.models import Admission, Patient,\
@@ -184,3 +188,14 @@ class PatientReferralInfoViewSet(viewsets.ReadOnlyModelViewSet):
             return Referral.objects.all()
 
         return Referral.objects.filter(patient=patient_id)
+
+
+class PatientsByName(generics.ListAPIView):
+    serializer_class = PatientSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = None
+
+    def get_queryset(self):
+        patient_name = self.request.query_params.get('patient_name')
+        queryset = Patient.objects.filter(patient_name__icontains=patient_name)
+        return queryset

@@ -11,7 +11,7 @@ from main.views import AdmissionViewSet,\
     ClinicianStatAPIView,\
     PatientAdmissionInfoViewSet,\
     PatientPrescriptionInfoViewSet, PatientReferralInfoViewSet,\
-    PatientViewSet, PrescriptionViewSet,\
+    PatientViewSet, PatientsByName, PrescriptionViewSet,\
     ReceptionistPatientView, ReceptionistStatAPIView,\
     ReferralViewSet, UserViewSet, WardViewSet,\
     ClinicianInfoViewSet
@@ -57,9 +57,10 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('browsable-api-auth/', include('rest_framework.urls')),
     path('auth/', include('dj_rest_auth.urls')),
-    path('', include(router.urls)),
     path('receptionists/stats/', ReceptionistStatAPIView.as_view()),
     path('medics/stats/', ClinicianStatAPIView.as_view()),
+    path('patients/by-name/', PatientsByName.as_view()),
+        path('', include(router.urls)),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0),
             name='schema-json'),
