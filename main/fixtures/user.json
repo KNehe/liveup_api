@@ -1,0 +1,62 @@
+[
+{
+    "model": "main.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$akgmBrQRA4X5bbDGQx5rWf$diO1cGRbo0czLhSOiDirudcLdHDJNWr+fmqmjF/Mk2A=",
+        "last_login": "2022-03-16T10:49:01.836Z",
+        "is_superuser": true,
+        "username": "Nehe",
+        "first_name": "Nehemiah",
+        "last_name": "Kamolu",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-02-25T17:10:32Z",
+        "email": "kamolunehemiah@gmail.com",
+        "phone_number": "+256774225437",
+        "role": "Receptionist",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "main.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$XTHY1NP3y9toA1JHupqMCt$hcXYl8+3VuTRMAbcM1ZdFQ4gg6KM9+0BaACInVIw1TY=",
+        "last_login": "2022-03-16T10:15:19.600Z",
+        "is_superuser": false,
+        "username": "DocNehe",
+        "first_name": "Nehe Fname",
+        "last_name": "Nehe Kname",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-26T20:05:52Z",
+        "email": "nehedoc@gmail.com",
+        "phone_number": null,
+        "role": "Doctor",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "main.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$4zt5bhINbkbYB1TkNeSH4e$fwj62Moi43aCr69KLJ0QCNhcPn1gCd89RwmX+Di5Q2w=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Rhodesia",
+        "first_name": "Rhoda",
+        "last_name": "Maxy",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-03-07T07:53:37.198Z",
+        "email": "rhoda@gmail.com",
+        "phone_number": "+256774225437",
+        "role": "Student Clinician",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
