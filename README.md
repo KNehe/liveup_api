@@ -1,5 +1,5 @@
 ## Liveup_api
-- An API that powers the [liveup web application](https://github.com/KNehe/liveup_web/pull/1) that enables doctors to track patient prescriptions, avoid redundancy and manual processes.
+- An API that powers the [liveup web application](https://github.com/KNehe/liveup_web) that enables doctors to track patient prescriptions, avoid redundancy and manual processes.
 
 ## Setting Up
 - Clone this repository
