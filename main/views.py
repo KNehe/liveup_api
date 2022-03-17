@@ -197,5 +197,8 @@ class PatientsByName(generics.ListAPIView):
 
     def get_queryset(self):
         patient_name = self.request.query_params.get('patient_name')
-        queryset = Patient.objects.filter(patient_name__icontains=patient_name)
+        queryset = Patient.objects.filter(patient_name__iexact=patient_name)
+        if not queryset or len(queryset) == 0:
+            queryset = Patient.objects.filter(patient_name__icontains=patient_name)
+
         return queryset

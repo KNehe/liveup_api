@@ -59,7 +59,7 @@ urlpatterns = [
     path('auth/', include('dj_rest_auth.urls')),
     path('receptionists/stats/', ReceptionistStatAPIView.as_view()),
     path('medics/stats/', ClinicianStatAPIView.as_view()),
-    path('patients/by-name/', PatientsByName.as_view()),
+    path('patient/by-name/', PatientsByName.as_view()),
         path('', include(router.urls)),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0),
