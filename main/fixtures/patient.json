@@ -1,0 +1,70 @@
+[
+{
+    "model": "main.patient",
+    "pk": 22,
+    "fields": {
+        "patient_number": "P-22",
+        "next_of_kin": "Iron man",
+        "address": "New York City",
+        "date_of_birth": "2018-10-09",
+        "age": 3,
+        "contacts": "+256 774 205 433",
+        "patient_name": "Tom Holland",
+        "created_at": "2022-03-06T19:41:47.735Z",
+        "created_by": 1,
+        "updated_at": null,
+        "updated_by": null
+    }
+},
+{
+    "model": "main.patient",
+    "pk": 31,
+    "fields": {
+        "patient_number": "P-31",
+        "next_of_kin": "Yaya Toure",
+        "address": "Cameroon",
+        "date_of_birth": "2022-03-07",
+        "age": 0,
+        "contacts": "+256 774 205 434",
+        "patient_name": "Victor Moses",
+        "created_at": "2022-03-07T16:08:32.600Z",
+        "created_by": 1,
+        "updated_at": null,
+        "updated_by": null
+    }
+},
+{
+    "model": "main.patient",
+    "pk": 32,
+    "fields": {
+        "patient_number": "P-32",
+        "next_of_kin": "Nehe K",
+        "address": "Kampala Ug Ntinda",
+        "date_of_birth": "2019-11-07",
+        "age": 2,
+        "contacts": "+256 774 205 434",
+        "patient_name": "Fabiola J",
+        "created_at": "2022-03-07T16:09:59.409Z",
+        "created_by": 1,
+        "updated_at": null,
+        "updated_by": null
+    }
+},
+{
+    "model": "main.patient",
+    "pk": 41,
+    "fields": {
+        "patient_number": "P-41",
+        "next_of_kin": "Yaya Toure",
+        "address": "Cameroon",
+        "date_of_birth": "2022-03-16",
+        "age": 0,
+        "contacts": "+256 774 205 434",
+        "patient_name": "Victor Moses aha",
+        "created_at": "2022-03-16T09:24:39.796Z",
+        "created_by": 1,
+        "updated_at": null,
+        "updated_by": null
+    }
+}
+]
