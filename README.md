@@ -1,6 +1,9 @@
 ## Liveup_api
 - An API that powers the [liveup web application](https://github.com/KNehe/liveup_web) that enables doctors to track patient prescriptions, avoid redundancy and manual processes.
 
+## Demo
+- Watch the demo [youtube](https://youtu.be/FrIVVXfFy-M")
+
 ## Setting Up
 - Clone this repository
 - Create .env with the following variables
@@ -25,7 +28,6 @@ EMAIL_HOST_PASSWORD=
 - Swagger  docs- https://nehe-liveup-api.herokuapp.com/api/v1/swagger/
 - Redoc - https://nehe-liveup-api.herokuapp.com/api/v1/redoc/
 - Each of the links point to the deployed app on heroku, I do not know how long it'll be up
-
 
 ## Features
 - Login with email and password.
