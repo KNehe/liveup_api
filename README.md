@@ -4,6 +4,7 @@
 ## Demo
 - Watch the demo [youtube](https://youtu.be/FrIVVXfFy-M")
 
+
 ## Setting Up
 - Clone this repository
 - Create .env with the following variables
@@ -22,6 +23,13 @@ EMAIL_HOST_USER=
 EMAIL_HOST_PASSWORD=
 ```
 
+### Docker
+- Prep `.env` as described below
+- Run  `docker compose build`
+- Run  `docker compose up`
+- Visit http://127.0.0.1:8000/api/v1/swagger/ or http://127.0.0.1:8000/api/v1/redoc/
+
+### Or
 - Run `pip install -R requirements.txt` in your virtual environment
 - Run `python manage.py runserver`
 - Visit http://127.0.0.1:8000/api/v1/swagger , http://127.0.0.1:8000/api/v1/ or
