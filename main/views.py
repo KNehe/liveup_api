@@ -21,6 +21,7 @@ from .permissions import IsNurse, IsReceptionist, IsDoctor, IsStudent_Clinician
 
 
 class PatientViewSet(viewsets.ModelViewSet):
+    """List, create, retreive and destroy operations for a patient"""
     serializer_class = PatientSerializer
     queryset = Patient.objects.all()
     permission_classes = [IsReceptionist | IsDoctor]
@@ -32,11 +33,9 @@ class PatientViewSet(viewsets.ModelViewSet):
         serializer.save(updated_by=self.request.user,
                         updated_at=timezone.now())
 
-    def perform_update(self, serializer):
-        return super().perform_update(serializer)
-
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    """List, create, retreive and destroy operations for a user"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
@@ -53,6 +52,10 @@ class ReceptionistPatientView(viewsets.ReadOnlyModelViewSet):
 
 
 class ReferralViewSet(viewsets.ModelViewSet):
+    """
+    List, create, retreive and destroy
+    operations for a patient referred to a clinician
+    """
     serializer_class = ReferralSerializer
     permission_classes = [IsAuthenticated]
     queryset = Referral.objects.all()
@@ -66,6 +69,7 @@ class ReferralViewSet(viewsets.ModelViewSet):
 
 
 class ClinicianAssignedPatientsViewSet(viewsets.ReadOnlyModelViewSet):
+    """Get patients assigned to a particular clinician"""
     serializer_class = ReferralSerializer
     permission_classes = [IsDoctor | IsNurse | IsStudent_Clinician]
 
@@ -74,6 +78,11 @@ class ClinicianAssignedPatientsViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class PrescriptionViewSet(viewsets.ModelViewSet):
+    """
+    List, create, retreive and destroy
+    operations for a patient's prescription
+    made by a clinician
+    """
     serializer_class = PrescriptionSerializer
     queryset = Prescription.objects.all()
 
@@ -93,6 +102,10 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
 
 
 class AdmissionViewSet(viewsets.ModelViewSet):
+    """
+    List, create, retreive and destroy operations for an admitted patient to
+    a particular ward
+    """
     serializer_class = AdmissionSerializer
     queryset = Admission.objects.all()
 
@@ -112,6 +125,9 @@ class AdmissionViewSet(viewsets.ModelViewSet):
 
 
 class WardViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    List, create, retreive and destroy operations for a ward
+    """
     serializer_class = WardSerializer
     queryset = Ward.objects.all()
     permission_classes = [IsAuthenticated]
@@ -119,6 +135,10 @@ class WardViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class ReceptionistStatAPIView(APIView):
+    """
+    Fetch statistics for a particular receptionist
+    e.g Number of patients registered today
+    """
     permission_classes = [IsReceptionist]
 
     def get(self, request, format=None):
@@ -127,6 +147,10 @@ class ReceptionistStatAPIView(APIView):
 
 
 class ClinicianStatAPIView(APIView):
+    """
+    Fetch statistics for a particular clinician
+    e.g Number of patients admitted today
+    """
     permission_classes = [IsDoctor | IsNurse | IsStudent_Clinician]
 
     def get(self, request, format=None):
@@ -135,6 +159,11 @@ class ClinicianStatAPIView(APIView):
 
 
 class ClinicianInfoViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Fetch users who are only clinicians
+    A clinician is either a Doctor, Nurse
+    or Student Clinician
+    """
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None
@@ -144,6 +173,11 @@ class ClinicianInfoViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class PatientAdmissionInfoViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Fetch admission data for a particular patient
+    A patient id is required as query param
+    Else fetch all admission data for all patients
+    """
     permission_classes = [IsDoctor | IsNurse | IsStudent_Clinician]
     serializer_class = AdmissionNestedSerializer
     pagination_class = None
@@ -158,6 +192,11 @@ class PatientAdmissionInfoViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class PatientPrescriptionInfoViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Fetch prescription data for a particular patient
+    A patient id is required as query param
+    Else fetch all prescription data for all patients
+    """
     serializer_class = PrescriptionNestedSerializer
     permission_classes = [IsDoctor | IsNurse | IsStudent_Clinician]
     pagination_class = None
@@ -191,6 +230,10 @@ class PatientReferralInfoViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class PatientsByName(generics.ListAPIView):
+    """
+    Fetch a patient's data using their name
+    patient_name query param is required
+    """
     serializer_class = PatientSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None
@@ -199,6 +242,6 @@ class PatientsByName(generics.ListAPIView):
         patient_name = self.request.query_params.get('patient_name')
         queryset = Patient.objects.filter(patient_name__iexact=patient_name)
         if not queryset or len(queryset) == 0:
-            queryset = Patient.objects.filter(patient_name__icontains=patient_name)
-
+            queryset = Patient.objects.filter(
+                patient_name__icontains=patient_name)
         return queryset
