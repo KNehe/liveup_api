@@ -1,27 +1,27 @@
 # FOR USER MODEL
 
-RECEPTIONIST = 'Receptionist'
-DOCTOR = 'Doctor'
-NURSE = 'Nurse'
-STUDENT_CLINICIAN = 'Student Clinician'
+RECEPTIONIST = "Receptionist"
+DOCTOR = "Doctor"
+NURSE = "Nurse"
+STUDENT_CLINICIAN = "Student Clinician"
 
 ROLES = (
     (RECEPTIONIST, RECEPTIONIST),
     (DOCTOR, DOCTOR),
     (NURSE, NURSE),
-    (STUDENT_CLINICIAN, STUDENT_CLINICIAN)
+    (STUDENT_CLINICIAN, STUDENT_CLINICIAN),
 )
 
 # CHOICES FOR REFFERAL MODEL
 
-ADMITTED = 'Admitted'
-DISCHARGED = 'Discharged'
-NOT_SEEN = 'Not seen'
-IN_PROGRESS = 'In progress'
+ADMITTED = "Admitted"
+DISCHARGED = "Discharged"
+NOT_SEEN = "Not seen"
+IN_PROGRESS = "In progress"
 
 REFERAL_STATUS = (
     (ADMITTED, ADMITTED),
     (DISCHARGED, DISCHARGED),
     (NOT_SEEN, NOT_SEEN),
-    (IN_PROGRESS, IN_PROGRESS)
+    (IN_PROGRESS, IN_PROGRESS),
 )

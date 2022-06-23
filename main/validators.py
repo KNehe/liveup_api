@@ -6,5 +6,5 @@ from django.utils import timezone
 def validate_dob(value):
     if value > timezone.now().date():
         raise ValidationError(
-            _(f'Date should be less than or equal to {timezone.now().date()}')
+            _(f"Date should be less than or equal to {timezone.now().date()}")
         )

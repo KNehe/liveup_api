@@ -1,7 +1,6 @@
 from rest_framework import permissions
 
-from main.choices import DOCTOR, NURSE,\
-    RECEPTIONIST, STUDENT_CLINICIAN
+from main.choices import DOCTOR, NURSE, RECEPTIONIST, STUDENT_CLINICIAN
 
 
 class IsReceptionist(permissions.BasePermission):

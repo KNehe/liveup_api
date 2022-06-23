@@ -9,20 +9,56 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationFrom
     form = CustomUserChangeFrom
     model = User
-    list_display = ['username', 'email', 'role', 'is_staff', ]
+    list_display = [
+        "username",
+        "email",
+        "role",
+        "is_staff",
+    ]
     fieldsets = (
-        ('Personal Info', {'fields': ('username', 'email', 'password',
-                           'phone_number', 'first_name', 'last_name')}),
-        ('Permissions', {'fields': ('role', 'is_staff', 'is_active',)}),
+        (
+            "Personal Info",
+            {
+                "fields": (
+                    "username",
+                    "email",
+                    "password",
+                    "phone_number",
+                    "first_name",
+                    "last_name",
+                )
+            },
+        ),
+        (
+            "Permissions",
+            {
+                "fields": (
+                    "role",
+                    "is_staff",
+                    "is_active",
+                )
+            },
+        ),
     )
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('username', 'email', 'role',
-                       'password1', 'password2',
-                       'is_staff', 'is_active',
-                       'phone_number', 'first_name',
-                       'last_name', )}),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "username",
+                    "email",
+                    "role",
+                    "password1",
+                    "password2",
+                    "is_staff",
+                    "is_active",
+                    "phone_number",
+                    "first_name",
+                    "last_name",
+                ),
+            },
+        ),
     )
 
 
