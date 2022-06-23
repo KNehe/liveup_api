@@ -41,7 +41,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """List, create, retreive and destroy operations for a user"""
 
     serializer_class = UserSerializer
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by("-id")
     permission_classes = [IsAuthenticated]
 
 
