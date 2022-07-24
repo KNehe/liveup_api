@@ -2,12 +2,12 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from main.models import Admission, Patient, Prescription, Referral, User, Ward
-from .forms import CustomUserChangeFrom, CustomUserCreationFrom
+from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
 class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationFrom
-    form = CustomUserChangeFrom
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
     model = User
     list_display = [
         "username",
